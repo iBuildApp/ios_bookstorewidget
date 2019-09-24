@@ -9,39 +9,33 @@ import UIKit
 import IBACore
 import IBACoreUI
 
-class MainViewController: BaseViewController {
+class MainViewController: BaseListViewController<BookCell> {
     // MARK: - Private properties
     /// Widget type indentifier
     private var type: String?
     
     /// Widger config data
     private var data: DataModel?
+    
     private var colorScheme: ColorSchemeModel?
-    
-    fileprivate var mainView: MainView {
-        return self.view as! MainView
-    }
-    
-    override public func loadView() {
-        if let data = data, let colorScheme = colorScheme {
-            view = MainView(model: data, colorScheme: colorScheme)
-        }
-    }
     
     // MARK: - Controller life cycle methods
     convenience init(type: String?, data: DataModel?) {
         let colorScheme = data?.colorScheme ?? AppManager.manager.appModel()?.design?.colorScheme
-        self.init()
+        self.init(with: colorScheme, data: data?.content)
         self.type = type
         self.data = data
         self.colorScheme = colorScheme
-        
-        automaticallyAdjustsScrollViewInsets = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = data?.title
+        
+        self.onItemSelect = { item in
+            let vc = BookDetailsViewController(with: self.colorScheme, data: item)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
