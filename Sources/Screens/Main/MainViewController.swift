@@ -37,5 +37,13 @@ class MainViewController: BaseListViewController<BookCell> {
             let vc = BookDetailsViewController(with: self.colorScheme, data: item)
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: getCoreUIImage(with: "filters"), style: .plain, target: self, action: #selector(showFilter))
+    }
+    
+    @objc
+    func showFilter() {
+        let vc = UINavigationController(rootViewController: FilterViewController(data: data))
+        self.present(vc, animated: true, completion: nil)
     }
 }

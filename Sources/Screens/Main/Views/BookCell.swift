@@ -22,7 +22,7 @@ class BookCell: UITableViewCell, BaseCellType {
     private let newsTitleLabel = UILabel()
     private let authorLabel = UILabel()
     
-    var onAction: ((ContentItemModel) -> Void)?
+    var onAction: ((ModelType) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,7 +48,7 @@ class BookCell: UITableViewCell, BaseCellType {
         
         contentView.flex.padding(10, 10, 0, 10).addItem().direction(.row).define { flex in
             flex.addItem(coverImageView).height(100).aspectRatio(100.0/150.0).shrink(1)
-            flex.addItem().paddingHorizontal(10).direction(.column).define { flex in
+            flex.addItem().paddingLeft(10).direction(.column).define { flex in
                 flex.addItem(newsTitleLabel).marginTop(8)
                 flex.addItem(authorLabel).marginTop(8)
             }

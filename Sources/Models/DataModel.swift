@@ -9,7 +9,7 @@ import Foundation
 import IBACore
 import IBACoreUI
 
-struct DataModel: Codable {
+class DataModel: Codable {
     var colorScheme: ColorSchemeModel?
     var title: String?
     var menu: [MenuItemModel]?
@@ -20,5 +20,16 @@ struct DataModel: Codable {
         case title
         case menu
         case content
+    }
+}
+
+extension DataModel {
+    func reset() {
+        menu?.forEach({ item in
+            item.isSelected = false
+            item.items?.forEach({ item in
+                item.isSelected = false
+            })
+        })
     }
 }

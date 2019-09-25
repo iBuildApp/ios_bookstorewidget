@@ -25,7 +25,6 @@ struct ContentItemModel: Codable, CellModelType {
     let bestsellers: UInt8
 }
 
-
 extension ContentItemModel {
     var thumbnailAuthorUrl: URL? {
         if !thumbnailAuthor.isEmpty, (thumbnailAuthor.contains(".jpg") || thumbnailAuthor.contains(".jpeg") || thumbnailAuthor.contains(".png")), let url = URL(string: thumbnailAuthor) {
