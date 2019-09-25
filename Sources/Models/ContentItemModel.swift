@@ -27,6 +27,13 @@ struct ContentItemModel: Codable, CellModelType {
 
 
 extension ContentItemModel {
+    var thumbnailAuthorUrl: URL? {
+        if !thumbnailAuthor.isEmpty, (thumbnailAuthor.contains(".jpg") || thumbnailAuthor.contains(".jpeg") || thumbnailAuthor.contains(".png")), let url = URL(string: thumbnailAuthor) {
+            return url
+        }
+        return nil
+    }
+    
     var thumbnailUrl: URL? {
         if !thumbnail.isEmpty, (thumbnail.contains(".jpg") || thumbnail.contains(".jpeg") || thumbnail.contains(".png")), let url = URL(string: thumbnail) {
             return url

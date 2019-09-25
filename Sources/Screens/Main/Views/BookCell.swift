@@ -22,8 +22,6 @@ class BookCell: UITableViewCell, BaseCellType {
     private let newsTitleLabel = UILabel()
     private let authorLabel = UILabel()
     
-    private let formatter = DateFormatter()
-    
     var onAction: ((ContentItemModel) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -44,6 +42,7 @@ class BookCell: UITableViewCell, BaseCellType {
         
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.clipsToBounds = true
+        
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
@@ -54,8 +53,6 @@ class BookCell: UITableViewCell, BaseCellType {
                 flex.addItem(authorLabel).marginTop(8)
             }
         }
-        
-        formatter.dateFormat = "MM/dd/yyyy HH:mm a"
     }
     
     required init?(coder aDecoder: NSCoder) {
