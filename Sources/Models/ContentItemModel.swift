@@ -9,8 +9,13 @@ import Foundation
 import IBACore
 import IBACoreUI
 
+enum BookTags: String {
+    case recommended
+    case releases
+    case bestsellers
+}
+
 struct ContentItemModel: Codable, CellModelType {
-    let id: String
     let title: String
     let description: String
     let author: String
@@ -38,5 +43,23 @@ extension ContentItemModel {
             return url
         }
         return nil
+    }
+    
+    var tags: [BookTags] {
+        var tags = [BookTags]()
+        
+        if self.recommended == 1 {
+            tags.append(.recommended)
+        }
+        
+        if self.releases == 1 {
+            tags.append(.releases)
+        }
+        
+        if self.releases == 1 {
+            tags.append(.releases)
+        }
+        
+        return tags
     }
 }

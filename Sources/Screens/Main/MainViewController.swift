@@ -31,8 +31,6 @@ class MainViewController: BaseListViewController<BookCell> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = data?.title
-        
         self.onItemSelect = { item in
             let vc = BookDetailsViewController(with: self.colorScheme, data: item)
             self.navigationController?.pushViewController(vc, animated: true)
@@ -43,7 +41,16 @@ class MainViewController: BaseListViewController<BookCell> {
     
     @objc
     func showFilter() {
-        let vc = UINavigationController(rootViewController: FilterViewController(data: data))
+        let filterVC = FilterViewController(data: data)
+        filterVC.delegate = self
+        let vc = UINavigationController(rootViewController: filterVC)
+        
+        if #available(iOS 13.0, *) {
+            vc.modalPresentationStyle = .automatic
+        } else {
+            vc.modalPresentationStyle = .overFullScreen
+        }
+        
         self.present(vc, animated: true, completion: nil)
     }
 }

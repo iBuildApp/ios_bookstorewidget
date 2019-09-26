@@ -16,6 +16,8 @@ class FilterViewController: BaseListViewController<FilterCell> {
     private var searchView: SearchView?
     private var resetButton: ButtonView?
     
+    public weak var delegate: MainViewController?
+    
     // MARK: - Controller life cycle methods
     convenience init(data: DataModel?) {
         let colorScheme = data?.colorScheme ?? AppManager.manager.appModel()?.design?.colorScheme
@@ -32,7 +34,7 @@ class FilterViewController: BaseListViewController<FilterCell> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = data?.title
+        searchView?.searchBar.text = data?.searchText
         
         self.onItemSelect = { item in
             if item.items != nil {
@@ -45,6 +47,7 @@ class FilterViewController: BaseListViewController<FilterCell> {
         }
         
         self.resetButton?.onAction = {
+            self.searchView?.searchBar.text = ""
             self.data?.reset()
             self.tableView.reloadData()
         }
@@ -54,9 +57,10 @@ class FilterViewController: BaseListViewController<FilterCell> {
             
     @objc
     func done() {
-        self.dismiss(animated: true) {
-            ///
-        }
+        self.data?.searchText = searchView?.searchBar.text ?? ""
+        delegate?.configure(data: self.data?.filtered() ?? [ContentItemModel]())
+        
+        self.dismiss(animated: true)
     }
 }
 
