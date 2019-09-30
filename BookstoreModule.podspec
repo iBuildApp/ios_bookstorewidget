@@ -16,6 +16,7 @@ Pod::Spec.new do |spec|
   spec.frameworks     = 'UIKit', 'Foundation'
   spec.dependency       'IBACore'
   spec.dependency       'IBACoreUI'
+  spec.dependency       'Kingfisher'
 
   spec.test_spec 'Tests' do |test_spec|
     test_spec.source_files = 'Tests/*.swift'
